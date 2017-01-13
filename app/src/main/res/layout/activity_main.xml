@@ -1,18 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/default_m"
+    android:paddingRight="@dimen/default_m"
+    android:paddingTop="@dimen/default_m"
+    android:paddingBottom="@dimen/default_m"
+    android:background="@color/bg"
+    android:orientation="vertical"
     tools:context="zt.sakoonkinamaz.MainActivity">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/title"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
-</RelativeLayout>
+        android:text="@string/prayer_timing"
+        android:textColor="@color/text_color"
+        android:textSize="@dimen/biggest_t"
+        android:layout_marginTop="@dimen/default_m"
+        android:gravity="center"/>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_marginTop="@dimen/default_m"
+        android:layout_marginBottom="@dimen/default_m"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:footerDividersEnabled="false"
+        android:scrollbarStyle="outsideInset"
+        android:overScrollFooter="@android:color/transparent"
+        android:transcriptMode="alwaysScroll" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/biggest_m">
+
+        <Button
+            android:id="@+id/done"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sl_b"
+            android:layout_margin="@dimen/small_m"
+            android:layout_weight="0.5"
+            style="@style/button_style"
+            android:text="@string/done"/>
+
+        <Button
+            android:id="@+id/exit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/sl_b"
+            android:layout_margin="@dimen/small_m"
+            android:layout_weight="0.5"
+            style="@style/button_style"
+            android:text="@string/exit"/>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -12,12 +12,11 @@
     <color name="trans_green">#96008000</color>
 
 
-    <!-- Different for less than v21 -->
-    <color name="text_color">#ffffff</color>
-    <color name="bg">@color/green</color>
-    <color name="bg_color">@color/green</color>
-    <color name="bg_stroke">@color/white</color>
-    <color name="trans_btn">#96ffffff</color>
-    <color name="btn">#ffffff</color>
-
+    <!-- Different for v21 -->
+    <color name="text_color">#000000</color>
+    <color name="bg">#fafafa</color>
+    <color name="bg_color">@color/white</color>
+    <color name="bg_stroke">@color/green</color>
+    <color name="trans_btn">#96008000</color>
+    <color name="btn">#008000</color>
 </resources>

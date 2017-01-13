@@ -1,3 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sakoon ki Namaz</string>
+
+    <string name="fajr">Fajr</string>
+    <string name="zohar">Zohar</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="ishaa">Ishaa</string>
+    <string name="jumma">Jumma</string>
+
+    <string name="prayer_timing">Prayers Timing</string>
+    <string name="done">Done</string>
+    <string name="exit">Exit</string>
 </resources>
