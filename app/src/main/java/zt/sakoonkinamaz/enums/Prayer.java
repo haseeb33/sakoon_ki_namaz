@@ -1,4 +1,4 @@
-package zt.sakoonkinamaz;
+package zt.sakoonkinamaz.enums;
 
 /**
  * Created by Haseeb Bhai on 1/13/2017.

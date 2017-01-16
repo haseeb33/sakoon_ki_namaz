@@ -1,25 +1,36 @@
-package zt.sakoonkinamaz;
+package zt.sakoonkinamaz.adaper;
 
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
+
+import zt.sakoonkinamaz.bean.Bean;
+import zt.sakoonkinamaz.database.PrayersDataSource;
+import zt.sakoonkinamaz.publicData.PublicClass;
+import zt.sakoonkinamaz.R;
 
 public class Adapter extends ArrayAdapter<Bean> {
 
     private Context context;
-    private List<Bean> bean;
+    private ArrayList<Bean> bean;
+    private PrayersDataSource prayersDataSource;
 
-    public Adapter(Context c, List<Bean> b) {
+    public Adapter(Context c, ArrayList<Bean> b, PrayersDataSource p) {
         super(c, R.layout.list_item, b);
         this.context = c;
         this.bean = b;
+        this.prayersDataSource = p;
     }
 
     private class Holder {
@@ -28,8 +39,9 @@ public class Adapter extends ArrayAdapter<Bean> {
         private TextView endTime;
     }
 
+
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
         View v = convertView;
         Holder holder = new Holder();
         if (convertView == null){
@@ -64,12 +76,14 @@ public class Adapter extends ArrayAdapter<Bean> {
                         long l = PublicClass.IntToLong(selectedHour, selectedMinute);
                         if(item != null) item.setStartTime(l);
                         ((TextView) v).setText(PublicClass.LongToString(l));
+                        prayersDataSource.updatePrayer(item);
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");
                 mTimePicker.show();
             }
         });
+
         holder.endTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(final View v) {
@@ -83,6 +97,7 @@ public class Adapter extends ArrayAdapter<Bean> {
                         long l = PublicClass.IntToLong(selectedHour, selectedMinute);
                         if(item != null) item.setEndTime(l);
                         ((TextView) v).setText(PublicClass.LongToString(l));
+                        prayersDataSource.updatePrayer(item);
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");
@@ -97,6 +112,10 @@ public class Adapter extends ArrayAdapter<Bean> {
         return bean.size();
     }
 
+    public void changeBean(ArrayList<Bean> b){
+        this.bean = b;
+
+    }
     @Override
     public Bean getItem(int position) {
         return bean.get(position);

@@ -10,10 +10,12 @@
     <color name="dark_green">#006400</color>
     <color name="light_green">#228B22</color>
     <color name="trans_green">#96008000</color>
+    <color name="black">#000000</color>
 
 
     <!-- Different for less than v21 -->
     <color name="text_color">#ffffff</color>
+    <color name="text_color_hint">#64ffffff</color>
     <color name="bg">@color/green</color>
     <color name="bg_color">@color/green</color>
     <color name="bg_stroke">@color/white</color>

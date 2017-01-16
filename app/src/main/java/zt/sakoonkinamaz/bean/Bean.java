@@ -1,22 +1,36 @@
-package zt.sakoonkinamaz;
+package zt.sakoonkinamaz.bean;
 
 import android.content.Context;
+
+import zt.sakoonkinamaz.enums.Prayer;
+import zt.sakoonkinamaz.R;
 
 /**
  * Created by Haseeb Bhai on 1/12/2017.
  */
 
 public class Bean {
-
+    private long id;
     private String name;
     private long startTime;
     private long endTime;
     private Prayer prayer;
+    private int originalProfile;
 
     public Bean(Prayer p, long strt, long end){
         this.startTime = strt;
         this.endTime = end;
         this.prayer = p;
+    }
+
+    public Bean(String name, long strt, long end){
+        this.startTime = strt;
+        this.endTime = end;
+        this.name = name;
+    }
+
+    public Bean(){
+
     }
 
     public void setName(String name) {
@@ -71,4 +85,22 @@ public class Bean {
         return name;
     }
 
+    public long getId() {
+        return id;
+    }
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Prayer getPrayer() {
+        return prayer;
+    }
+
+    public int getOriginalProfile() {
+        return originalProfile;
+    }
+
+    public void setOriginalProfile(int originalProfile) {
+        this.originalProfile = originalProfile;
+    }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sakoon ki Namaz</string>
+    <string name="api_key">dSkLX1HYsw1gdSTOsZlvUKKXv5LMhMAx</string>
 
     <string name="fajr">Fajr</string>
     <string name="zohar">Zohar</string>
@@ -12,4 +13,14 @@
     <string name="prayer_timing">Prayers Timing</string>
     <string name="done">Done</string>
     <string name="exit">Exit</string>
+    <string name="add_more">+</string>
+    <string name="add_new">Add New Interval Here</string>
+    <string name="custom">Custom</string>
+    <string name="set_time">Set Time</string>
+
+    <string name="is_required">Required</string>
+    <string name="dialog_msg_delete">Are you sure want to delete this item?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+
 </resources>
