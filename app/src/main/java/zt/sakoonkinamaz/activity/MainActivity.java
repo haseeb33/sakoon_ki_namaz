@@ -2,12 +2,15 @@ package zt.sakoonkinamaz.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +19,17 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.logging.Handler;
+import java.util.logging.LogRecord;
 
 import zt.sakoonkinamaz.broadcast.PrayerTime;
 import zt.sakoonkinamaz.database.PrayersDataSource;
@@ -26,6 +39,8 @@ import zt.sakoonkinamaz.R;
 import zt.sakoonkinamaz.adaper.Adapter;
 import zt.sakoonkinamaz.bean.Bean;
 
+import static android.content.ContentValues.TAG;
+
 
 public class MainActivity extends Activity {
     private Button addMore;
@@ -33,11 +48,12 @@ public class MainActivity extends Activity {
     private ArrayList<Bean> beanArray = null;
     private Context context;
     private PrayersDataSource prayersDataSource;
-    Adapter adapter;
+    private Adapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        MobileAds.initialize(this, getResources().getString(R.string.app_id_for_admob));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setContentView(R.layout.activity_main);
             LinearLayout l = (LinearLayout) findViewById(R.id.under_21_layout);
@@ -50,6 +66,8 @@ public class MainActivity extends Activity {
         dbHandle();
         init();
         actions();
+        Intent startServiceIntent = new Intent(context, PrayerTime.class);
+        context.startService(startServiceIntent);
     }
 
     private void dbHandle() {
@@ -76,13 +94,16 @@ public class MainActivity extends Activity {
                 showDeleteDialog(position);
             }
         });
-        Intent startServiceIntent = new Intent(context, PrayerTime.class);
-        context.startService(startServiceIntent);
     }
 
     private void init() {
         context = this;
         addMore = (Button) findViewById(R.id.add_more);
+        AdView mAdView = (AdView) findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        // This is for testing
+//        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E714F9554B9F6AB6E940739C8D0704B8").build();
+        mAdView.loadAd(adRequest);
         list = (ListView) findViewById(R.id.list);
         if(beanArray == null) {
             beanArray = new ArrayList<>();
@@ -158,7 +179,20 @@ public class MainActivity extends Activity {
             adapter.changeBean(beanArray);
             adapter.notifyDataSetChanged();
         }
+    }
 
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        Intent stopService = new Intent(context, PrayerTime.class);
+//        context.stopService(stopService);
+//    }
+
+    @Override
+    protected void onStop() {
+//        Intent startServiceIntent = new Intent(context, PrayerTime.class);
+//        context.startService(startServiceIntent);
+        super.onStop();
     }
 }
 

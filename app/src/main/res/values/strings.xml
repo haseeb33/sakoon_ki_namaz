@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sakoon ki Namaz</string>
-    <string name="api_key">dSkLX1HYsw1gdSTOsZlvUKKXv5LMhMAx</string>
-
+    <!--Testing banner id -->
+    <string name="banner_ad_unit_id">ca-app-pub-3940256099942544/6300978111</string>
+    <!-- live banner id
+    <string name="banner_ad_unit_id">ca-app-pub-1787517647495803</string>
+    -->
+    <string name="app_id_for_admob">ca-app-pub-1787517647495803~5310682776</string>
     <string name="fajr">Fajr</string>
     <string name="zohar">Zohar</string>
     <string name="asr">Asr</string>
@@ -22,5 +26,7 @@
     <string name="dialog_msg_delete">Are you sure want to delete this item?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+
+    <string name="notification_title">Silent Mode: On</string>
 
 </resources>

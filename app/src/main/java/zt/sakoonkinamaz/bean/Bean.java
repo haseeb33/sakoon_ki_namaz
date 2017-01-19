@@ -9,7 +9,8 @@ import zt.sakoonkinamaz.R;
  * Created by Haseeb Bhai on 1/12/2017.
  */
 
-public class Bean {
+public class Bean implements Comparable<Bean> {
+//public class Bean {
     private long id;
     private String name;
     private long startTime;
@@ -17,19 +18,19 @@ public class Bean {
     private Prayer prayer;
     private int originalProfile;
 
-    public Bean(Prayer p, long strt, long end){
+    public Bean(Prayer p, long strt, long end) {
         this.startTime = strt;
         this.endTime = end;
         this.prayer = p;
     }
 
-    public Bean(String name, long strt, long end){
+    public Bean(String name, long strt, long end) {
         this.startTime = strt;
         this.endTime = end;
         this.name = name;
     }
 
-    public Bean(){
+    public Bean() {
 
     }
 
@@ -63,7 +64,7 @@ public class Bean {
 
     public String getPrayer(Context context) {
         String name = "Custom";
-        switch(prayer) {
+        switch (prayer) {
             case FAJR:
                 name = context.getResources().getString(R.string.fajr);
                 break;
@@ -88,6 +89,7 @@ public class Bean {
     public long getId() {
         return id;
     }
+
     public void setId(long id) {
         this.id = id;
     }
@@ -102,5 +104,12 @@ public class Bean {
 
     public void setOriginalProfile(int originalProfile) {
         this.originalProfile = originalProfile;
+    }
+
+    @Override
+    public int compareTo(Bean o) {
+        if (this.startTime > o.startTime) return 1;
+        else return -1;
+
     }
 }

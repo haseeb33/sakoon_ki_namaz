@@ -3,7 +3,7 @@
 
     <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar.Fullscreen"/>
 
-    <style name="DialogTheme" parent="android:Theme.Holo.Dialog.NoActionBar"/>
+    <style name="DialogTheme" parent="android:Theme.Holo.Light.Dialog.NoActionBar"/>
 
     <style name="button_style">
         <item name="android:textColor">@color/green</item>

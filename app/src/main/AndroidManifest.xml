@@ -30,19 +30,17 @@
             android:theme="@style/DialogTheme" >
         </activity>
 
-        <receiver android:name=".broadcast.MatchTime"/>
-
-        <receiver android:name=".broadcast.AutoStart">
+        <receiver android:name=".broadcast.MatchTime">
+            android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
-                <action android:name="android.intent.action.QUICKBOOT_POWERON" />
             </intent-filter>
         </receiver>
 
         <service
             android:name=".broadcast.PrayerTime"
             android:enabled="true"
-            android:process=":your_service" >
+            android:process=":prayer_service" >
         </service>
 
     </application>
