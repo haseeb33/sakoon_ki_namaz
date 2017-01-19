@@ -30,7 +30,6 @@ public class AddNewItemDialog extends Activity implements View.OnClickListener {
     private long startTime, endTime;
     private String name;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

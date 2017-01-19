@@ -30,12 +30,7 @@
             android:theme="@style/DialogTheme" >
         </activity>
 
-        <receiver android:name=".broadcast.MatchTime">
-            android:enabled="true">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-        </receiver>
+        <receiver android:name=".broadcast.MatchTime"/>
 
         <service
             android:name=".broadcast.PrayerTime"
@@ -43,6 +38,14 @@
             android:process=":prayer_service" >
         </service>
 
+        <receiver android:name=".broadcast.AutoStart">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".broadcast.NotificationService"
+            android:process=":notification"/>
     </application>
 
 </manifest>

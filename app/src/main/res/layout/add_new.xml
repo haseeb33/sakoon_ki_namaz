@@ -24,6 +24,7 @@
         android:textSize="@dimen/big_t"
         android:layout_marginTop="@dimen/small_m"
         android:textColorHint="@color/text_color_hint"
+        android:maxLines="1"
         android:textColor="@color/text_color"
         android:hint="@string/custom"
         android:gravity="center"/>
@@ -33,6 +34,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/small_m"
+        android:maxLines="1"
         android:padding="@dimen/small_m"
         android:text="@string/set_time"
         android:textSize="@dimen/big_t"
@@ -44,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="@dimen/small_m"
+        android:maxLines="1"
         android:gravity="center"
         android:textSize="@dimen/big_t"
         android:textColor="@color/text_color"

@@ -66,8 +66,6 @@ public class MainActivity extends Activity {
         dbHandle();
         init();
         actions();
-        Intent startServiceIntent = new Intent(context, PrayerTime.class);
-        context.startService(startServiceIntent);
     }
 
     private void dbHandle() {
@@ -147,8 +145,6 @@ public class MainActivity extends Activity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         prayersDataSource.deletePrayer(beanArray.get(position));
-//                        adapter.remove(beanArray.get(position));
-//                        beanArray = prayersDataSource.getAllPrayers();
                         beanArray.remove(position);
                         adapter.changeBean(beanArray);
                         adapter.notifyDataSetChanged();
@@ -190,8 +186,8 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onStop() {
-//        Intent startServiceIntent = new Intent(context, PrayerTime.class);
-//        context.startService(startServiceIntent);
+        Intent startServiceIntent = new Intent(MainActivity.this, PrayerTime.class);
+        startService(startServiceIntent);
         super.onStop();
     }
 }

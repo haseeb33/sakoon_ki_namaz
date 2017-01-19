@@ -6,14 +6,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.PowerManager;
-import android.util.Log;
 import android.widget.Toast;
 
 import java.util.Calendar;
 
-import zt.sakoonkinamaz.R;
 
 /**
  * Created by Haseeb Bhai on 1/15/2017.
@@ -23,11 +20,13 @@ public class MatchTime extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Action: " + intent.getAction() + "\n");
-        sb.append("URI: " + intent.toUri(Intent.URI_INTENT_SCHEME).toString() + "\n");
-        String log = sb.toString();
-        Toast.makeText(context, log, Toast.LENGTH_LONG).show();
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
+        wl.acquire();
+        AudioManager am = (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
+        am.setRingerMode(AudioManager.RINGER_MODE_SILENT);
+        String name = intent.getStringExtra("name");
+        callNotificationService(context, name);
 
 //        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
 //            Intent startServiceIntent = new Intent(context, PrayerTime.class);
@@ -51,13 +50,8 @@ public class MatchTime extends BroadcastReceiver {
 //                prayerTime.hideNotification();
 //            }
 
-            PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
-            PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "");
-            wl.acquire();
             // AudioManager is controlling the profile mode
 //        AudioManager am= (AudioManager) context.getSystemService(Context.AUDIO_SERVICE);
-            MediaPlayer mediaPlayer = MediaPlayer.create(context, R.raw.azaan);
-            mediaPlayer.start();
             //For Normal mode
 //        if(am.getRingerMode() == AudioManager.RINGER_MODE_SILENT){
 //            am.setRingerMode(AudioManager.RINGER_MODE_NORMAL);
@@ -72,6 +66,14 @@ public class MatchTime extends BroadcastReceiver {
 //        Toast.makeText(context, "Alarm !!!!!!!!!!", Toast.LENGTH_LONG).show(); // For example
             wl.release();
 //        }
+    }
+
+    private void callNotificationService(Context context, String name) {
+        Intent service = new Intent(context, NotificationService.class);
+        service.putExtra("activeSlot", name);
+        // Start the service, keeping the device awake while it is launching.
+        context.startService(service);
+
     }
 
     public void setAlarm(Context context, int hour, int min, String name, boolean isStart, long dbId, int profile) {
@@ -89,7 +91,7 @@ public class MatchTime extends BroadcastReceiver {
         i.putExtra("currentProfile", profile);
 
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-        am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi); // Millisec * Second * Minute
+        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi); // Millisec * Second * Minute
     }
 
     public void cancelAlarm(Context context) {
