@@ -27,7 +27,6 @@ public class PrayerTime extends Service {
     private PrayersDataSource prayers;
     private ArrayList<Bean> beanArray = null;
     private Bean currentBean = null;
-    private int hour, minute;
     private String name;
 
     @Override
@@ -61,6 +60,7 @@ public class PrayerTime extends Service {
         Calendar calendar = Calendar.getInstance();
         int h = calendar.get(Calendar.HOUR_OF_DAY);
         int m = calendar.get(Calendar.MINUTE);
+        int date = calendar.get(Calendar.DAY_OF_YEAR);
         long currentTime = IntToLong(h, m);
         int count = 0;
         for(int i = 0; i < beanArray.size(); i++){
@@ -69,25 +69,29 @@ public class PrayerTime extends Service {
                 if(count == beanArray.size())
                 {
                     currentBean = beanArray.get(0);
-                    minute =(int) ((currentBean.getStartTime() / (1000 * 60)) % 60);
-                    hour =(int) ((currentBean.getStartTime() / (1000 * 60 * 60)) % 24);
+                    int minute =(int) ((currentBean.getStartTime() / (1000 * 60)) % 60);
+                    int hour =(int) ((currentBean.getStartTime() / (1000 * 60 * 60)) % 24);
                     databaseId = currentBean.getId();
-                    name = currentBean.getName();
+                    String name = currentBean.getName();
                     previousProfile = AudioManager.RINGER_MODE_SILENT;
                     isStart = true;
+                    if(minute != 0 && hour != 0) {
+                        Calendar c = setOnCalender(minute, hour);
+                        c.set(Calendar.DAY_OF_YEAR, date+1);
+                        time.setAlarm(this, c, name);
+                    }
                 }
             } else {
                 currentBean = beanArray.get(i);
-                minute =(int) ((currentBean.getStartTime() / (1000 * 60)) % 60);
-                hour =(int) ((currentBean.getStartTime() / (1000 * 60 * 60)) % 24);
+                int minute =(int) ((currentBean.getStartTime() / (1000 * 60)) % 60);
+                int hour =(int) ((currentBean.getStartTime() / (1000 * 60 * 60)) % 24);
                 databaseId = currentBean.getId();
-                name = currentBean.getName();
+                String name = currentBean.getName();
                 isStart = true;
+                Calendar c = setOnCalender(minute, hour);
+                time.setAlarm(this, c, name);
                 break;
             }
-        }
-        if(minute != 0 && hour != 0) {
-            time.setAlarm(this, hour, minute, name);
         }
     }
 
@@ -95,15 +99,24 @@ public class PrayerTime extends Service {
         for(int i = 0; i < beanArray.size(); i++){
             if(id == beanArray.get(i).getId()){
                 currentBean = beanArray.get(i);
-                minute = (int) ((currentBean.getEndTime() / (1000 * 60)) % 60);
-                hour =(int) ((currentBean.getEndTime() / (1000 * 60 * 60)) % 24);
+                int minute = (int) ((currentBean.getEndTime() / (1000 * 60)) % 60);
+                int hour =(int) ((currentBean.getEndTime() / (1000 * 60 * 60)) % 24);
                 databaseId = 0;
                 isStart = false;
                 name = "";
+                Calendar c = setOnCalender(minute, hour);
+                time.setAlarm(this, c, name);
                 break;
             }
         }
-        time.setAlarm(this, hour, minute, name);
     }
 
+    private Calendar setOnCalender(int hr, int min){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hr);
+        calendar.set(Calendar.MINUTE, min);
+        return calendar;
+    }
 }

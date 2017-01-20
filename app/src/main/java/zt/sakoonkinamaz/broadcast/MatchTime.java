@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
+import android.os.Build;
 import android.os.PowerManager;
 import android.widget.Toast;
 
@@ -50,19 +51,18 @@ public class MatchTime extends BroadcastReceiver {
 
     }
 
-    public void setAlarm(Context context, int hour, int min, String name) {
+    public void setAlarm(Context context, Calendar calendar, String name) {
         AlarmManager am =(AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, min);
 
         Intent i = new Intent(context, MatchTime.class);
         i.putExtra("slotName", name);
 
         PendingIntent pi = PendingIntent.getBroadcast(context, 0, i, PendingIntent.FLAG_UPDATE_CURRENT);
-        am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi); // Millisec * Second * Minute
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi); // Millisec * Second * Minute
+        } else {
+            am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pi); // Millisec * Second * Minute
+        }
     }
 
     public void cancelAlarm(Context context) {

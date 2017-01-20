@@ -48,6 +48,4 @@ public class PublicClass {
         l = minMilliSec + hrMilliSec;
         return l;
     }
-
-
 }
