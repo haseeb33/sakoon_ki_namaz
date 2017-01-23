@@ -68,6 +68,7 @@ public class PrayersDataSource {
         contentValues.put(FeedPrayer.ORIGNAL_PROFILE, bean.getOriginalProfile());
         long id = bean.getId();
         database.update(FeedPrayer.TABLE_NAME, contentValues, "_id="+ id, null);
+
     }
 
     public void createPrayer(Bean bean) {
