@@ -18,18 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ListView;
-
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.logging.Handler;
-import java.util.logging.LogRecord;
 
 import zt.sakoonkinamaz.broadcast.PrayerTime;
 import zt.sakoonkinamaz.database.PrayersDataSource;
@@ -53,7 +42,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        MobileAds.initialize(this, getResources().getString(R.string.app_id_for_admob));
+//        MobileAds.initialize(this, getResources().getString(R.string.app_id_for_admob));
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             setContentView(R.layout.activity_main);
             LinearLayout l = (LinearLayout) findViewById(R.id.under_21_layout);
@@ -74,6 +63,29 @@ public class MainActivity extends Activity {
         beanArray = prayersDataSource.getAllPrayers();
     }
 
+    private void init() {
+        context = this;
+        addMore = (Button) findViewById(R.id.add_more);
+//        AdView mAdView = (AdView) findViewById(R.id.adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+        // This is for testing
+//        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E714F9554B9F6AB6E940739C8D0704B8").build();
+//        mAdView.loadAd(adRequest);
+        list = (ListView) findViewById(R.id.list);
+        if(beanArray == null) {
+            beanArray = new ArrayList<>();
+            for (Prayer p : Prayer.values()) {
+                Bean b = new Bean(p, -1, -1);
+                b.setName(b.getPrayer(context));
+                prayersDataSource.createPrayer(b);
+            }
+            beanArray = prayersDataSource.getAllPrayers();
+        }
+//        else {
+//            Toast.makeText(context, "This data is from DB", Toast.LENGTH_SHORT).show();
+//        }
+    }
+
     private void actions() {
         adapter = new Adapter(context, beanArray, prayersDataSource);
         list.setAdapter(adapter);
@@ -92,29 +104,6 @@ public class MainActivity extends Activity {
                 showDeleteDialog(position);
             }
         });
-    }
-
-    private void init() {
-        context = this;
-        addMore = (Button) findViewById(R.id.add_more);
-        AdView mAdView = (AdView) findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        // This is for testing
-//        AdRequest adRequest = new AdRequest.Builder().addTestDevice("E714F9554B9F6AB6E940739C8D0704B8").build();
-        mAdView.loadAd(adRequest);
-        list = (ListView) findViewById(R.id.list);
-        if(beanArray == null) {
-            beanArray = new ArrayList<>();
-            for (Prayer p : Prayer.values()) {
-                Bean b = new Bean(p, 0, 0);
-                b.setName(b.getPrayer(context));
-                beanArray.add(b);
-                prayersDataSource.createPrayer(b);
-            }
-        }
-//        else {
-//            Toast.makeText(context, "This data is from DB", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
@@ -171,7 +160,7 @@ public class MainActivity extends Activity {
             long e = data.getExtras().getLong("new_end_time");
             Bean b = new Bean(name, s, e);
             prayersDataSource.createPrayer(b);
-            beanArray.add(b);
+            beanArray = prayersDataSource.getAllPrayers();
             adapter.changeBean(beanArray);
             adapter.notifyDataSetChanged();
         }
@@ -187,7 +176,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onStop() {
         Intent startServiceIntent = new Intent(MainActivity.this, PrayerTime.class);
-        startService(startServiceIntent);
+        context.startService(startServiceIntent);
         super.onStop();
     }
 }
