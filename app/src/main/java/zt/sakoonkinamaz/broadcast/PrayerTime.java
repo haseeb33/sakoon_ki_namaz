@@ -1,6 +1,5 @@
 package zt.sakoonkinamaz.broadcast;
 
-import android.app.AlarmManager;
 import android.app.Service;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -76,7 +75,7 @@ public class PrayerTime extends Service {
         for(int i = 0; i < beanArray.size(); i++){
             if(currentTime >= beanArray.get(i).getStartTime()){
                count++;
-                if(currentBean == null && beanArray.get(i).getStartTime() != 0){
+                if(currentBean == null && beanArray.get(i).getStartTime() != -1){
                     currentBean = beanArray.get(i);
                 }
                 if(currentBean != null && count == beanArray.size())

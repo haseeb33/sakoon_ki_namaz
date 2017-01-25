@@ -2,15 +2,12 @@ package zt.sakoonkinamaz.activity;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,8 +25,9 @@ import zt.sakoonkinamaz.R;
 import zt.sakoonkinamaz.adaper.Adapter;
 import zt.sakoonkinamaz.bean.Bean;
 
-import static android.content.ContentValues.TAG;
-
+/**
+ * Created by Haseeb Bhai on 1/15/2017.
+ */
 
 public class MainActivity extends Activity {
     private Button addMore;

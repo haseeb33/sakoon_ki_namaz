@@ -9,7 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.IBinder;
-
+import android.os.PowerManager;
 
 import zt.sakoonkinamaz.R;
 import zt.sakoonkinamaz.activity.MainActivity;
@@ -28,11 +28,16 @@ public class NotificationService extends Service {
         String name = intent.getStringExtra("activeSlot");
         SharedPreferences pref = getSharedPreferences("SakoonKiNamaz", MODE_PRIVATE);
         Boolean isStart = pref.getBoolean("isStart", true);
-        if (isStart) {
-            showNotification(name);
-        } else {
-            hideNotification();
-        }
+        PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
+        PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
+        wl.acquire();
+        showNotification(name);
+//        if (isStart) {
+//            showNotification(name);
+//        } else {
+//            hideNotification();
+//        }
+        wl.release();
         return START_NOT_STICKY;
     }
 
@@ -42,6 +47,7 @@ public class NotificationService extends Service {
     }
 
     public void showNotification(String name) {
+
         mNotificationManager = (NotificationManager) this.
                 getSystemService(Context.NOTIFICATION_SERVICE);
 
