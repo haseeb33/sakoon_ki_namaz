@@ -79,9 +79,6 @@ public class MainActivity extends Activity {
             }
             beanArray = prayersDataSource.getAllPrayers();
         }
-//        else {
-//            Toast.makeText(context, "This data is from DB", Toast.LENGTH_SHORT).show();
-//        }
     }
 
     private void actions() {
@@ -163,13 +160,6 @@ public class MainActivity extends Activity {
             adapter.notifyDataSetChanged();
         }
     }
-
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        Intent stopService = new Intent(context, PrayerTime.class);
-//        context.stopService(stopService);
-//    }
 
     @Override
     protected void onStop() {

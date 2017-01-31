@@ -16,7 +16,6 @@ public class Bean implements Comparable<Bean> {
     private long startTime;
     private long endTime;
     private Prayer prayer;
-    private int originalProfile;
 
     public Bean(Prayer p, long strt, long end) {
         this.startTime = strt;
@@ -58,10 +57,6 @@ public class Bean implements Comparable<Bean> {
         return endTime;
     }
 
-    public void setPrayer(Prayer prayer) {
-        this.prayer = prayer;
-    }
-
     public String getPrayer(Context context) {
         String name = "Custom";
         switch (prayer) {
@@ -80,8 +75,6 @@ public class Bean implements Comparable<Bean> {
             case ISHAA:
                 name = context.getResources().getString(R.string.ishaa);
                 break;
-            case JUMMA:
-                name = context.getResources().getString(R.string.jumma);
         }
         return name;
     }
@@ -94,22 +87,9 @@ public class Bean implements Comparable<Bean> {
         this.id = id;
     }
 
-    public Prayer getPrayer() {
-        return prayer;
-    }
-
-    public int getOriginalProfile() {
-        return originalProfile;
-    }
-
-    public void setOriginalProfile(int originalProfile) {
-        this.originalProfile = originalProfile;
-    }
-
     @Override
     public int compareTo(Bean o) {
         if (this.startTime > o.startTime) return 1;
         else return -1;
-
     }
 }

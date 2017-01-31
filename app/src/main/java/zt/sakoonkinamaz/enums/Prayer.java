@@ -9,6 +9,5 @@ public enum Prayer {
     ZOHAR,
     ASR,
     MAGHRIB,
-    ISHAA,
-    JUMMA
+    ISHAA
 }

@@ -6,7 +6,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
+import android.graphics.BitmapFactory;
 import android.os.Build;
 import android.os.IBinder;
 import android.os.PowerManager;
@@ -26,17 +26,14 @@ public class NotificationService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String name = intent.getStringExtra("activeSlot");
-        SharedPreferences pref = getSharedPreferences("SakoonKiNamaz", MODE_PRIVATE);
-        Boolean isStart = pref.getBoolean("isStart", true);
         PowerManager pm = (PowerManager) this.getSystemService(Context.POWER_SERVICE);
         PowerManager.WakeLock wl = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "TAG");
         wl.acquire();
-        showNotification(name);
-//        if (isStart) {
-//            showNotification(name);
-//        } else {
-//            hideNotification();
-//        }
+        if(name.equals("")){
+            hideNotification();
+        } else {
+            showNotification(name);
+        }
         wl.release();
         return START_NOT_STICKY;
     }
@@ -68,7 +65,8 @@ public class NotificationService extends Service {
             Notification noti = new Notification.Builder(this)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(name + " time it is!")
-                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.large_notification))
                     .setContentIntent(contentIntent)
                     .getNotification();
             mNotificationManager.notify(NOTIFICATION_ID, noti);
@@ -77,7 +75,8 @@ public class NotificationService extends Service {
             Notification noti = new Notification.Builder(this)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(name + " time it is!")
-                    .setSmallIcon(R.drawable.ic_launcher)
+                    .setSmallIcon(R.drawable.notification_icon)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.large_notification))
                     .setContentIntent(contentIntent)
                     .build();
             mNotificationManager.notify(NOTIFICATION_ID, noti);

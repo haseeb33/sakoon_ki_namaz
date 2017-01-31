@@ -65,7 +65,6 @@ public class PrayersDataSource {
         contentValues.put(FeedPrayer.COLUMN_NAME, bean.getName());
         contentValues.put(FeedPrayer.COLUM_START, bean.getStartTime());
         contentValues.put(FeedPrayer.COLUM_END, bean.getEndTime());
-        contentValues.put(FeedPrayer.ORIGNAL_PROFILE, bean.getOriginalProfile());
         long id = bean.getId();
         database.update(FeedPrayer.TABLE_NAME, contentValues, "_id="+ id, null);
 
@@ -77,7 +76,6 @@ public class PrayersDataSource {
         contentValues.put(FeedPrayer.COLUMN_NAME, bean.getName());
         contentValues.put(FeedPrayer.COLUM_START, bean.getStartTime());
         contentValues.put(FeedPrayer.COLUM_END, bean.getEndTime());
-        contentValues.put(FeedPrayer.ORIGNAL_PROFILE, bean.getOriginalProfile());
         database.insert(FeedPrayer.TABLE_NAME, null, contentValues);
     }
 
@@ -111,7 +109,6 @@ public class PrayersDataSource {
         bean.setName(cursor.getString(cursor.getColumnIndex(FeedPrayer.COLUMN_NAME)));
         bean.setStartTime(cursor.getLong(cursor.getColumnIndex(FeedPrayer.COLUM_START)));
         bean.setEndTime(cursor.getLong(cursor.getColumnIndex(FeedPrayer.COLUM_END)));
-        bean.setOriginalProfile(cursor.getInt(cursor.getColumnIndex(FeedPrayer.ORIGNAL_PROFILE)));
         return bean;
     }
 }
