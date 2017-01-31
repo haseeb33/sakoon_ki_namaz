@@ -24,12 +24,14 @@ import zt.sakoonkinamaz.enums.Prayer;
 import zt.sakoonkinamaz.R;
 import zt.sakoonkinamaz.adaper.Adapter;
 import zt.sakoonkinamaz.bean.Bean;
+import zt.sakoonkinamaz.publicData.PublicClass;
 
 /**
  * Created by Haseeb Bhai on 1/15/2017.
  */
 
 public class MainActivity extends Activity {
+
     private Button addMore;
     private ListView list;
     private ArrayList<Bean> beanArray = null;
@@ -155,6 +157,7 @@ public class MainActivity extends Activity {
             long e = data.getExtras().getLong("new_end_time");
             Bean b = new Bean(name, s, e);
             prayersDataSource.createPrayer(b);
+            PublicClass.dataSetChanged = true;
             beanArray = prayersDataSource.getAllPrayers();
             adapter.changeBean(beanArray);
             adapter.notifyDataSetChanged();
@@ -163,9 +166,10 @@ public class MainActivity extends Activity {
 
     @Override
     protected void onStop() {
-        Intent startServiceIntent = new Intent(MainActivity.this, PrayerTime.class);
-        context.startService(startServiceIntent);
+        if (PublicClass.dataSetChanged) {
+            Intent startServiceIntent = new Intent(MainActivity.this, PrayerTime.class);
+            context.startService(startServiceIntent);
+        }
         super.onStop();
     }
 }
-

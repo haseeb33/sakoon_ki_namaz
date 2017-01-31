@@ -8,9 +8,10 @@ import java.text.DecimalFormat;
 
 public class PublicClass {
 
+    public static boolean dataSetChanged = false;
     public static String LongToString(long l){
-        String string = "";
-        Boolean PmFlag = true;
+        String string ;
+        Boolean PmFlag ;
         DecimalFormat hr= new DecimalFormat("00");
         DecimalFormat min = new DecimalFormat("00");
 

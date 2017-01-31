@@ -75,6 +75,7 @@ public class Adapter extends ArrayAdapter<Bean> {
                         if(item != null) item.setStartTime(l);
                         ((TextView) v).setText(PublicClass.LongToString(l));
                         prayersDataSource.updatePrayer(item);
+                        PublicClass.dataSetChanged = true;
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");
@@ -96,6 +97,7 @@ public class Adapter extends ArrayAdapter<Bean> {
                         if(item != null) item.setEndTime(l);
                         ((TextView) v).setText(PublicClass.LongToString(l));
                         prayersDataSource.updatePrayer(item);
+                        PublicClass.dataSetChanged = true;
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");

@@ -66,7 +66,7 @@ public class NotificationService extends Service {
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(name + " time it is!")
                     .setSmallIcon(R.drawable.notification_icon)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.large_notification))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setContentIntent(contentIntent)
                     .getNotification();
             mNotificationManager.notify(NOTIFICATION_ID, noti);
@@ -76,7 +76,7 @@ public class NotificationService extends Service {
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(name + " time it is!")
                     .setSmallIcon(R.drawable.notification_icon)
-                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.large_notification))
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setContentIntent(contentIntent)
                     .build();
             mNotificationManager.notify(NOTIFICATION_ID, noti);
