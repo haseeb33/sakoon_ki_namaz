@@ -10,14 +10,14 @@ import android.os.Build;
 
 import java.util.Calendar;
 
-import static zt.sakoonkinamaz.broadcast.PrayerTime.previousProfile;
+import static zt.sakoonkinamaz.broadcast.PrayerTimeService.previousProfile;
 
 
-/**
+/***
  * Created by Haseeb Bhai on 1/15/2017.
  */
 
-public class MatchTime extends BroadcastReceiver {
+public class MatchTimeReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -36,14 +36,14 @@ public class MatchTime extends BroadcastReceiver {
     }
 
     private void callPrayerTimeServiceAgain(Context context) {
-        Intent startServiceAgain = new Intent(context, PrayerTime.class);
+        Intent startServiceAgain = new Intent(context, PrayerTimeService.class);
         context.startService(startServiceAgain);
     }
 
     public void handleTime(Context context, Calendar calendar, String name, int requestCode) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent i = new Intent(context, MatchTime.class);
+        Intent i = new Intent(context, MatchTimeReceiver.class);
         i.putExtra("slotName", name);
 
         PendingIntent startTime = PendingIntent.getBroadcast(context, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);

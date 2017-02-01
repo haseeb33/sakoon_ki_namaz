@@ -12,6 +12,7 @@ import android.widget.TimePicker;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import zt.sakoonkinamaz.activity.MainActivity;
 import zt.sakoonkinamaz.bean.Bean;
 import zt.sakoonkinamaz.database.PrayersDataSource;
 import zt.sakoonkinamaz.publicData.PublicClass;
@@ -75,7 +76,7 @@ public class Adapter extends ArrayAdapter<Bean> {
                         if(item != null) item.setStartTime(l);
                         ((TextView) v).setText(PublicClass.LongToString(l));
                         prayersDataSource.updatePrayer(item);
-                        PublicClass.dataSetChanged = true;
+                        MainActivity.dataSetChanged = true;
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");
@@ -97,7 +98,7 @@ public class Adapter extends ArrayAdapter<Bean> {
                         if(item != null) item.setEndTime(l);
                         ((TextView) v).setText(PublicClass.LongToString(l));
                         prayersDataSource.updatePrayer(item);
-                        PublicClass.dataSetChanged = true;
+                        MainActivity.dataSetChanged = true;
                     }
                 }, hour, minute, false);
                 mTimePicker.setTitle("Select Time");

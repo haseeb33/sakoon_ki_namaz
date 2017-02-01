@@ -5,12 +5,12 @@ import android.content.Context;
 import zt.sakoonkinamaz.enums.Prayer;
 import zt.sakoonkinamaz.R;
 
-/**
+/***
  * Created by Haseeb Bhai on 1/12/2017.
  */
 
 public class Bean implements Comparable<Bean> {
-//public class Bean {
+
     private long id;
     private String name;
     private long startTime;

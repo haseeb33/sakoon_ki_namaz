@@ -2,13 +2,12 @@ package zt.sakoonkinamaz.publicData;
 
 import java.text.DecimalFormat;
 
-/**
+/***
  * Created by Haseeb Bhai on 1/13/2017.
  */
 
 public class PublicClass {
 
-    public static boolean dataSetChanged = false;
     public static String LongToString(long l){
         String string ;
         Boolean PmFlag ;

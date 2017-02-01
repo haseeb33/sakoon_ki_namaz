@@ -14,7 +14,7 @@ import android.os.PowerManager;
 import zt.sakoonkinamaz.R;
 import zt.sakoonkinamaz.activity.MainActivity;
 
-/**
+/***
  * Created by Haseeb Bhai on 1/19/2017.
  */
 
