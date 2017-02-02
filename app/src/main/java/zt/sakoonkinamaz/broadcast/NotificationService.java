@@ -65,7 +65,7 @@ public class NotificationService extends Service {
             Notification noti = new Notification.Builder(this)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(name + " time it is!")
-                    .setSmallIcon(R.drawable.notification_icon)
+                    .setSmallIcon(R.drawable.small_icon)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setContentIntent(contentIntent)
                     .getNotification();
@@ -75,7 +75,7 @@ public class NotificationService extends Service {
             Notification noti = new Notification.Builder(this)
                     .setContentTitle(getString(R.string.notification_title))
                     .setContentText(name + " time it is!")
-                    .setSmallIcon(R.drawable.notification_icon)
+                    .setSmallIcon(R.drawable.small_icon)
                     .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.icon))
                     .setContentIntent(contentIntent)
                     .build();

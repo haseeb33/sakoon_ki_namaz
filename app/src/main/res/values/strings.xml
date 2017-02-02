@@ -19,9 +19,11 @@
     <string name="exit">Exit</string>
     <string name="add_more">+</string>
     <string name="add_more_item">Add More</string>
-    <string name="add_new">Add New Silent Mode</string>
+    <string name="add_new">New Silent Mode Slot</string>
     <string name="custom">Custom</string>
     <string name="set_time">Set Time</string>
+    <string name="start_time">Start Time</string>
+    <string name="end_time">End Time</string>
 
     <string name="is_required">Required</string>
     <string name="dialog_msg_delete">Are you sure want to delete this item?</string>

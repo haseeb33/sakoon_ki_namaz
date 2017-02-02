@@ -14,7 +14,8 @@ public class PublicClass {
         DecimalFormat hr= new DecimalFormat("00");
         DecimalFormat min = new DecimalFormat("00");
 
-        if (l == -1) return "Set Time" ;
+        if (l == -1) return "Start Time" ;
+        if (l == -2) return "End Time";
 
         long minute = (l / (1000 * 60)) % 60;
         long hour = (l / (1000 * 60 * 60)) % 24;

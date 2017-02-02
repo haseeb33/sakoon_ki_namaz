@@ -80,7 +80,7 @@ public class MainActivity extends Activity {
         if(beanArray == null) {
             beanArray = new ArrayList<>();
             for (Prayer p : Prayer.values()) {
-                Bean b = new Bean(p, -1, -1);
+                Bean b = new Bean(p, -1, -2);
                 b.setName(b.getPrayer(context));
                 prayersDataSource.createPrayer(b);
             }
