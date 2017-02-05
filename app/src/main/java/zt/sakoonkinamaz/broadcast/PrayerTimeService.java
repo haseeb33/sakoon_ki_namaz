@@ -20,6 +20,7 @@ import static zt.sakoonkinamaz.publicData.PublicClass.IntToLong;
 
 public class PrayerTimeService extends Service {
 
+
     public static int previousProfile = AudioManager.RINGER_MODE_SILENT;
 
     private MatchTimeReceiver time = new MatchTimeReceiver();
@@ -73,6 +74,7 @@ public class PrayerTimeService extends Service {
                     Calendar endCalender = setOnCalender(currentBean.getEndTime());
                     endCalender.set(Calendar.DAY_OF_YEAR, date+1);
                     time.handleTime(this, endCalender, name, 1);
+//                    setMobileSilent(currentBean, date+1);
                 }
             } else {
                 currentBean = beanArray.get(i);
@@ -84,10 +86,30 @@ public class PrayerTimeService extends Service {
                 Calendar endCalender = setOnCalender(currentBean.getEndTime());
                 time.handleTime(this, endCalender, name, 1);
 
+//                setMobileSilent(currentBean, date);
                 break;
             }
         }
     }
+
+//    private void setMobileSilent(Bean b, int date){
+//        if ( b.getEndTime() > 0 ) {
+//
+//            String name = b.getName();
+//            Calendar startCalender = setOnCalender(b.getStartTime());
+//            startCalender.set(Calendar.DAY_OF_YEAR, date);
+//            time.handleTime(this, startCalender, name, 0);
+//
+//            if (b.getStartTime() > b.getEndTime()) {
+//                date+=1;
+//            }
+//
+//            name = "";
+//            Calendar endCalender = setOnCalender(b.getEndTime());
+//            endCalender.set(Calendar.DAY_OF_YEAR, date);
+//            time.handleTime(this, endCalender, name, 1);
+//        }
+//    }
 
     private Calendar setOnCalender(long time){
         int minute = (int) ((time / (1000 * 60)) % 60);
@@ -95,6 +117,7 @@ public class PrayerTimeService extends Service {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
         return calendar;
     }
 }
