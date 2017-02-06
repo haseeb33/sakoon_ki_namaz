@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.AudioManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
@@ -27,8 +26,6 @@ import zt.sakoonkinamaz.enums.Prayer;
 import zt.sakoonkinamaz.R;
 import zt.sakoonkinamaz.adaper.Adapter;
 import zt.sakoonkinamaz.bean.Bean;
-
-import static zt.sakoonkinamaz.broadcast.PrayerTimeService.previousProfile;
 
 
 /***
@@ -186,7 +183,6 @@ public class MainActivity extends Activity {
     protected void onStop() {
 
         if (dataSetChanged || !isNotificationServiceActive) {
-            previousProfile = AudioManager.RINGER_MODE_SILENT;
             Intent startServiceIntent = new Intent(MainActivity.this, PrayerTimeService.class);
             context.startService(startServiceIntent);
         }
