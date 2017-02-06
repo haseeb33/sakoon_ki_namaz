@@ -4,6 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.os.IBinder;
+import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -19,7 +21,6 @@ import static zt.sakoonkinamaz.publicData.PublicClass.IntToLong;
  */
 
 public class PrayerTimeService extends Service {
-
 
     public static int previousProfile = AudioManager.RINGER_MODE_SILENT;
 
@@ -53,7 +54,7 @@ public class PrayerTimeService extends Service {
         Calendar calendar = Calendar.getInstance();
         int h = calendar.get(Calendar.HOUR_OF_DAY);
         int m = calendar.get(Calendar.MINUTE);
-        int date = calendar.get(Calendar.DAY_OF_YEAR);
+        int day = calendar.get(Calendar.DAY_OF_YEAR);
         long currentTime = IntToLong(h, m);
         int count = 0;
 
@@ -65,59 +66,38 @@ public class PrayerTimeService extends Service {
                 }
                 if(currentBean != null && count == beanArray.size())
                 {
-                    String name = currentBean.getName();
-                    Calendar startCalender = setOnCalender(currentBean.getStartTime());
-                    startCalender.set(Calendar.DAY_OF_YEAR, date+1);
-                    time.handleTime(this, startCalender, name, 0);
-
-                    name = "";
-                    Calendar endCalender = setOnCalender(currentBean.getEndTime());
-                    endCalender.set(Calendar.DAY_OF_YEAR, date+1);
-                    time.handleTime(this, endCalender, name, 1);
-//                    setMobileSilent(currentBean, date+1);
+                    setMobileSilent(currentBean, day+1);
                 }
             } else {
                 currentBean = beanArray.get(i);
-                String name = currentBean.getName();
-                Calendar startCalender = setOnCalender(currentBean.getStartTime());
-                time.handleTime(this, startCalender, name, 0);
-
-                name = "";
-                Calendar endCalender = setOnCalender(currentBean.getEndTime());
-                time.handleTime(this, endCalender, name, 1);
-
-//                setMobileSilent(currentBean, date);
+                setMobileSilent(currentBean, day);
                 break;
             }
         }
     }
 
-//    private void setMobileSilent(Bean b, int date){
-//        if ( b.getEndTime() > 0 ) {
-//
-//            String name = b.getName();
-//            Calendar startCalender = setOnCalender(b.getStartTime());
-//            startCalender.set(Calendar.DAY_OF_YEAR, date);
-//            time.handleTime(this, startCalender, name, 0);
-//
-//            if (b.getStartTime() > b.getEndTime()) {
-//                date+=1;
-//            }
-//
-//            name = "";
-//            Calendar endCalender = setOnCalender(b.getEndTime());
-//            endCalender.set(Calendar.DAY_OF_YEAR, date);
-//            time.handleTime(this, endCalender, name, 1);
-//        }
-//    }
+    private void setMobileSilent(Bean bean, int day){
+        String name = bean.getName();
+        Calendar sc = setOnCalender(bean.getStartTime(), day);
+        time.handleTime(this, sc, name, 0);
 
-    private Calendar setOnCalender(long time){
+        if ( bean.getStartTime() > bean.getEndTime() ) {
+           day += 1;
+        }
+
+        name = "";
+        Calendar ec = setOnCalender(bean.getEndTime(), day);
+        time.handleTime(this, ec, name, 1);
+    }
+
+    private Calendar setOnCalender(long time, int day){
         int minute = (int) ((time / (1000 * 60)) % 60);
         int hour = (int) ((time / (1000 * 60 * 60)) % 24);
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.DAY_OF_YEAR, day);
         return calendar;
     }
 }
