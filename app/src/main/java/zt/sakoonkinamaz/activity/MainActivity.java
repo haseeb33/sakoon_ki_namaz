@@ -18,8 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import java.util.ArrayList;
 
-import zt.sakoonkinamaz.broadcast.NotificationService;
-import zt.sakoonkinamaz.broadcast.PrayerTimeService;
+import zt.sakoonkinamaz.services.NotificationService;
+import zt.sakoonkinamaz.services.PrayerTimeService;
 import zt.sakoonkinamaz.database.PrayersDataSource;
 import zt.sakoonkinamaz.dialog.AddNewItemDialog;
 import zt.sakoonkinamaz.enums.Prayer;
@@ -91,7 +91,6 @@ public class MainActivity extends Activity {
     private void actions() {
         adapter = new Adapter(context, beanArray, prayersDataSource);
         list.setAdapter(adapter);
-//        setListHeight();
         addMore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

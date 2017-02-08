@@ -3,6 +3,9 @@ package zt.sakoonkinamaz.broadcast;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+
+import zt.sakoonkinamaz.services.PrayerTimeService;
+
 /***
  * Created by Haseeb Bhai on 1/19/2017.
  */

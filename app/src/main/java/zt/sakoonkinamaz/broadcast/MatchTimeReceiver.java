@@ -10,7 +10,10 @@ import android.os.Build;
 
 import java.util.Calendar;
 
-import static zt.sakoonkinamaz.broadcast.PrayerTimeService.previousProfile;
+import zt.sakoonkinamaz.services.NotificationService;
+import zt.sakoonkinamaz.services.PrayerTimeService;
+
+import static zt.sakoonkinamaz.services.PrayerTimeService.previousProfile;
 
 
 /***
@@ -30,14 +33,8 @@ public class MatchTimeReceiver extends BroadcastReceiver {
         callNotificationService(context, name);
 
         if (name.equals("")) {
-            callPrayerTimeServiceAgain(context);
             previousProfile = AudioManager.RINGER_MODE_SILENT;
         }
-    }
-
-    private void callPrayerTimeServiceAgain(Context context) {
-        Intent startServiceAgain = new Intent(context, PrayerTimeService.class);
-        context.startService(startServiceAgain);
     }
 
     public void handleTime(Context context, Calendar calendar, String name, int requestCode) {
